@@ -152,7 +152,7 @@ pub struct Mod {
 }
 
 impl Mod {
-    pub fn new(
+    pub const fn new(
         name: String,
         identifier: ModIdentifier,
         filters: Vec<Filter>,
