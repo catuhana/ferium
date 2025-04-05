@@ -122,11 +122,11 @@ pub async fn add(
             ModIdentifier::GitHubRepository(o, r) => gh_ids.push((o, r)),
 
             ModIdentifier::PinnedCurseForgeProject(mod_id, file_id) => {
-                let project = CURSEFORGE_API.get_mod(mod_id).await?;
-                let file = CURSEFORGE_API.get_mod_file(mod_id, file_id).await?;
+                let _project = CURSEFORGE_API.get_mod(mod_id).await?;
+                let _file = CURSEFORGE_API.get_mod_file(mod_id, file_id).await?;
             }
-            ModIdentifier::PinnedModrinthProject(project_id, version_id) => todo!(),
-            ModIdentifier::PinnedGitHubRepository((owner, repo), asset_id) => todo!(),
+            ModIdentifier::PinnedModrinthProject(_project_id, _version_id) => todo!(),
+            ModIdentifier::PinnedGitHubRepository((_owner, _repo), _asset_id) => todo!(),
         }
     }
 
