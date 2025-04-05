@@ -394,7 +394,7 @@ pub async fn modrinth(
     } else {
         if perform_checks {
             check::select_latest(
-                [Metadata {
+                std::iter::once(&Metadata {
                     filename: "".to_owned(),
                     title: "".to_owned(),
                     description: "".to_owned(),
@@ -405,8 +405,7 @@ pub async fn modrinth(
                         .filter_map(|s| ModLoader::from_str(s).ok())
                         .collect_vec(),
                     channel: ReleaseChannel::Release,
-                }]
-                .iter(),
+                }),
                 if override_profile {
                     profile.filters.clone()
                 } else {
@@ -467,7 +466,7 @@ pub async fn curseforge(
     } else {
         if perform_checks {
             check::select_latest(
-                [Metadata {
+                std::iter::once(&Metadata {
                     filename: "".to_owned(),
                     title: "".to_owned(),
                     description: "".to_owned(),
@@ -486,8 +485,7 @@ pub async fn curseforge(
                         })
                         .collect_vec(),
                     channel: ReleaseChannel::Release,
-                }]
-                .iter(),
+                }),
                 if override_profile {
                     profile.filters.clone()
                 } else {
