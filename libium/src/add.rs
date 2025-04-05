@@ -324,7 +324,7 @@ pub async fn add(
 ///
 /// Returns the name of the repository to display to the user
 pub async fn github(
-    id: &(impl AsRef<str> + ToString, impl AsRef<str> + ToString),
+    id: &(impl AsRef<str> + Sync, impl AsRef<str> + Sync),
     profile: &mut Profile,
     perform_checks: Option<Vec<Metadata>>,
     override_profile: bool,
@@ -357,7 +357,7 @@ pub async fn github(
     // Add it to the profile
     profile.push_mod(
         id.1.as_ref().trim().to_string(),
-        ModIdentifier::GitHubRepository(id.0.to_string(), id.1.to_string()),
+        ModIdentifier::GitHubRepository(id.0.as_ref().to_owned(), id.1.as_ref().to_owned()),
         id.1.as_ref().trim().to_string(),
         override_profile,
         filters,
