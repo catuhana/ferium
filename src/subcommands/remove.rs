@@ -32,7 +32,7 @@ pub fn remove(profile: &mut Profile, to_remove: Vec<String>) -> Result<()> {
                 )
             })
             .collect_vec();
-        MultiSelect::new("Select mods to remove", mod_info.clone())
+        MultiSelect::new("Select mods to remove", mod_info)
             .raw_prompt_skippable()?
             .unwrap_or_default()
             .iter()

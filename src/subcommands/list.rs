@@ -168,14 +168,12 @@ pub fn curseforge(project: &Mod) {
             .iter()
             .map(|author| &author.name)
             .display(", ")
-            .to_string()
             .cyan(),
         project
             .categories
             .iter()
             .map(|category| &category.name)
             .display(", ")
-            .to_string()
             .magenta(),
     );
 }
@@ -208,14 +206,8 @@ pub fn modrinth(project: &Project, team_members: &[TeamMember]) {
             .iter()
             .map(|member| &member.user.username)
             .display(", ")
-            .to_string()
             .cyan(),
-        project
-            .categories
-            .iter()
-            .display(", ")
-            .to_string()
-            .magenta(),
+        project.categories.iter().display(", ").magenta(),
         {
             if project.license.name.is_empty() {
                 "Custom"
@@ -268,11 +260,9 @@ pub fn github(repo: &Repository, releases: &[Release]) {
         "Yes".green(),
         downloads.to_string().yellow(),
         repo.owner.as_ref().unwrap().login.cyan(),
-        repo.topics.as_ref().map_or("".into(), |topics| topics
-            .iter()
-            .display(", ")
-            .to_string()
-            .magenta()),
+        repo.topics
+            .as_ref()
+            .map_or("".into(), |topics| topics.iter().display(", ").magenta()),
         repo.license
             .as_ref()
             .map_or("None".into(), |license| format!(
