@@ -132,13 +132,13 @@ async fn actual_main(mut cli_app: Ferium) -> Result<()> {
         return Ok(());
     }
     // Alias `ferium profiles` to `ferium profile list`
-    if let SubCommands::Profiles = cli_app.subcommand {
+    if matches!(cli_app.subcommand, SubCommands::Profiles) {
         cli_app.subcommand = SubCommands::Profile {
             subcommand: Some(ProfileSubCommands::List),
         };
     }
     // Alias `ferium modpacks` to `ferium modpack list`
-    if let SubCommands::Modpacks = cli_app.subcommand {
+    if matches!(cli_app.subcommand, SubCommands::Modpacks) {
         cli_app.subcommand = SubCommands::Modpack {
             subcommand: Some(ModpackSubCommands::List),
         };
@@ -346,7 +346,8 @@ async fn actual_main(mut cli_app: Ferium) -> Result<()> {
                     .await
                     {
                         return Err(
-                            if let Some(&ferinth::Error::InvalidIDorSlug) = err.downcast_ref() {
+                            if matches!(err.downcast_ref(), Some(&ferinth::Error::InvalidIDorSlug))
+                            {
                                 anyhow!("Invalid identifier")
                             } else {
                                 err

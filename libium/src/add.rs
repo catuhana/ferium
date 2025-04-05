@@ -93,7 +93,7 @@ pub fn parse_id(id: String) -> ModIdentifier {
                 ModIdentifier::ModrinthProject(id)
             }
         },
-        |id| ModIdentifier::CurseForgeProject(id),
+        ModIdentifier::CurseForgeProject,
     )
 }
 
