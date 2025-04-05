@@ -12,7 +12,7 @@ impl VersionExt for Version {
         self.files
             .iter()
             .find(|f| f.primary)
-            .unwrap_or(&self.files[0])
+            .unwrap_or_else(|| &self.files[0])
     }
 
     fn into_version_file(mut self) -> VersionFile {

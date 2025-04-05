@@ -21,9 +21,9 @@ pub static GITHUB_API: LazyLock<octocrab::Octocrab> = LazyLock::new(|| {
 });
 
 pub static CURSEFORGE_API: LazyLock<furse::Furse> = LazyLock::new(|| {
-    furse::Furse::new(std::env::var("CURSEFORGE_API_KEY").unwrap_or(String::from(
-        "$2a$10$sI.yRk4h4R49XYF94IIijOrO4i3W3dAFZ4ssOlNE10GYrDhc2j8K.",
-    )))
+    furse::Furse::new(std::env::var("CURSEFORGE_API_KEY").unwrap_or_else(|_| {
+        String::from("$2a$10$sI.yRk4h4R49XYF94IIijOrO4i3W3dAFZ4ssOlNE10GYrDhc2j8K.")
+    }))
 });
 
 pub static MODRINTH_API: LazyLock<ferinth::Ferinth> = LazyLock::new(|| {
