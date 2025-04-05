@@ -31,13 +31,15 @@ pub async fn curseforge(
         .context("Please pick an output directory")?,
     };
     check_output_directory(&output_dir)?;
-    let install_overrides = match install_overrides {
-        Some(some) => some,
-        None => Confirm::new("Should overrides be installed?")
-            .with_default(true)
-            .prompt()
-            .unwrap_or_default(),
-    };
+    let install_overrides = install_overrides.map_or_else(
+        || {
+            Confirm::new("Should overrides be installed?")
+                .with_default(true)
+                .prompt()
+                .unwrap_or_default()
+        },
+        |some| some,
+    );
     if install_overrides {
         println!(
             "{}",
@@ -77,13 +79,15 @@ pub async fn modrinth(
         .context("Please pick an output directory")?,
     };
     check_output_directory(&output_dir)?;
-    let install_overrides = match install_overrides {
-        Some(some) => some,
-        None => Confirm::new("Should overrides be installed?")
-            .with_default(true)
-            .prompt()
-            .unwrap_or_default(),
-    };
+    let install_overrides = install_overrides.map_or_else(
+        || {
+            Confirm::new("Should overrides be installed?")
+                .with_default(true)
+                .prompt()
+                .unwrap_or_default()
+        },
+        |some| some,
+    );
     if install_overrides {
         println!(
             "{}",

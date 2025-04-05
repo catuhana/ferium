@@ -84,16 +84,17 @@ struct ReleaseAsset {
 }
 
 pub fn parse_id(id: String) -> ModIdentifier {
-    if let Ok(id) = id.parse() {
-        ModIdentifier::CurseForgeProject(id)
-    } else {
-        let split = id.split('/').collect_vec();
-        if split.len() == 2 {
-            ModIdentifier::GitHubRepository(split[0].to_owned(), split[1].to_owned())
-        } else {
-            ModIdentifier::ModrinthProject(id)
-        }
-    }
+    id.parse().map_or_else(
+        |_| {
+            let split = id.split('/').collect_vec();
+            if split.len() == 2 {
+                ModIdentifier::GitHubRepository(split[0].to_owned(), split[1].to_owned())
+            } else {
+                ModIdentifier::ModrinthProject(id)
+            }
+        },
+        |id| ModIdentifier::CurseForgeProject(id),
+    )
 }
 
 /// Adds mods from `identifiers`, and returns successful mods with their names, and unsuccessful mods with an error.

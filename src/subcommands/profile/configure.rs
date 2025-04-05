@@ -15,32 +15,29 @@ pub async fn configure(
     name: Option<String>,
     output_dir: Option<PathBuf>,
 ) -> Result<()> {
-    let mut interactive = true;
-
-    if !game_versions.is_empty() {
+    let interactive = if !game_versions.is_empty() {
         *profile
             .filters
             .game_versions_mut()
             .context("Active profile does not filter by game version")? = game_versions;
 
-        interactive = false;
-    }
-    if !mod_loaders.is_empty() {
+        false
+    } else if !mod_loaders.is_empty() {
         *profile
             .filters
             .mod_loaders_mut()
             .context("Active profile does not filter mod loader")? = mod_loaders;
 
-        interactive = false;
-    }
-    if let Some(name) = name {
+        false
+    } else if let Some(name) = name {
         profile.name = name;
-        interactive = false;
-    }
-    if let Some(output_dir) = output_dir {
+        false
+    } else if let Some(output_dir) = output_dir {
         profile.output_dir = output_dir;
-        interactive = false;
-    }
+        false
+    } else {
+        true
+    };
 
     if interactive {
         let items = vec![
